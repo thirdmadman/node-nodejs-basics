@@ -14,10 +14,6 @@ const list = async (relativePathToDir = 'files') => {
   const dirname = path.dirname(fileURLToPath(import.meta.url));
   const dirPath = path.join(dirname, relativePathToDir);
 
-  fs.access(dirPath, fs.F_OK, (accessError) => {
-    if (accessError) throw new Error('FS operation failed');
-  });
-
   fs.readdir(dirPath, (error, files) => {
     if (error) throw new Error('FS operation failed');
 
