@@ -1,5 +1,26 @@
-const list = async () => {
-    // Write your code here 
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+/**
+ * list.js
+ * Prints all array of filenames from files folder into console
+ * if files folder doesn't exists Error with message "FS operation failed" must be thrown
+ *
+ * @param {string} relativePathToDir
+ */
+
+const list = async (relativePathToDir = 'files') => {
+  const dirname = path.dirname(fileURLToPath(import.meta.url));
+  const dirPath = path.join(dirname, relativePathToDir);
+
+  fs.readdir(dirPath, (error, files) => {
+    if (error) throw new Error('FS operation failed');
+
+    files.forEach((file) => {
+      console.log(file);
+    });
+  });
 };
 
 await list();
